@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+        <h2>Thông tin sinh viên</h2>
+        <form th:action="@{/student/save}" th:object="${sv}" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" >
+                <small class="text-danger" th:errors="*{name}"></small>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" >
+                <small class="text-danger" th:errors="*{email}"></small>
+            </div>
+            <div class="form-group">
+                <label for="marks">Marks:</label>
+                <input type="number" class="form-control" id="marks" th:field="*{marks}" >
+                <small class="text-danger" th:errors="*{marks}"></small>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="male" th:field="*{gender}"
+                        value="true" >
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="female" th:field="*{gender}"
+                        value="false" >
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+                <small class="text-danger" th:errors="*{gender}"></small>
+            </div>
+            <div class="form-group">
+                <label for="faculty">Faculty:</label>
+                <select class="form-control" id="faculty" th:field="*{faculty}" >
+                    <option value="">Select Faculty</option>
+                    <option th:each="faculty : ${faculties}" th:value="${faculty}" th:text="${faculty}"></option>
+                </select>
+                <small class="text-danger" th:errors="*{faculty}"></small>
+            </div>
+            <div class="form-group">
+                <label for="hobbies">Hobbies:</label>
+                <div class="form-check" th:each="hobby : ${hobbies}">
+                    <input class="form-check-input" type="checkbox" th:id="${hobby.key}" th:field="*{hobbies}"
+                        th:value="${hobby.key}">
+                    <label class="form-check-label" th:for="${hobby.key}" th:text="${hobby.value}"></label>
+                </div>
+                <small class="text-danger" th:errors="*{hobbies}"></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</body>
+</html>
